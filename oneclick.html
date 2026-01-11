@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>원클릭페이</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- OG -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="원클릭페이" />
+  <meta property="og:description" content="한번의 클릭으로 간편하게" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab" />
+  <meta property="og:url" content="http://oneclick-pay.co.kr" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: #000;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 72px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: transparent;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      color: #ffffff;
+    }
+
+    section {
+      min-height: 100vh;
+      padding: 160px 10%;
+      display: flex;
+      align-items: center;
+    }
+
+    .section-content {
+      max-width: 900px;
+    }
+
+    h1, h2 {
+      font-weight: 600;
+      letter-spacing: -0.6px;
+    }
+
+    /* ================= HERO ================= */
+    .hero {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      transition: background-image 1s ease;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title {
+      font-size: 3.6rem;
+      line-height: 1.15;
+      transition: opacity 0.6s ease;
+    }
+
+    .hero-sub {
+      margin-top: 32px;
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.9);
+      transition: opacity 0.6s ease;
+    }
+
+    /* PROMISE */
+    .promise {
+      background:
+        linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),        
+        url("https://images.unsplash.com/photo-1524758631624-e2822e304c36");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .promise-sub {
+      margin-top: 18px;
+      max-width: 720px;
+      color: rgba(255,255,255,0.85);
+      font-size: 1.05rem;
+    }
+
+    .promise-list {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 28px;
+    }
+
+    .promise-icon {
+      font-size: 1.4rem;
+      opacity: 0.85;
+      margin-bottom: 6px;
+    }
+
+    .promise-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .promise-desc {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* SPEED */
+    .speed {
+      background:
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+        url("https://images.unsplash.com/photo-1503264116251-35a269479413");
+      background-size: cover;
+      background-position: center;
+    }
+
+    footer {
+      background: #000;
+      color: #64748b;
+      text-align: center;
+      padding: 50px 10%;
+    }
+
+    /* FLOATING */
+    .floating-consult {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.5);
+      text-decoration: none;
+      background: transparent;
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 140px 7%; }
+      .hero-title { font-size: 2.4rem; }
+    }
+
+    .floating-wrap {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2000;
+}
+
+.floating-btn {
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #ffffff;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.5);
+  background: transparent;
+  text-align: center;
+  backdrop-filter: blur(2px);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.floating-btn:hover {
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-1px);
+}
+
+/* 카카오도 톤 통일 */
+.floating-btn.kakao {
+  border-color: rgba(255,255,255,0.35);
+  opacity: 0.9;
+}
+.compare {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.compare h2 {
+  color: #0f172a;
+}
+
+.compare-sub {
+  margin-top: 16px;
+  color: #475569;
+  max-width: 720px;
+}
+
+.compare-table {
+  margin-top: 48px;
+  display: grid;
+  row-gap: 14px;
+}
+
+.compare-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  padding: 16px 0;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 0.95rem;
+}
+
+.compare-row.head {
+  font-weight: 600;
+  border-bottom: 2px solid #0f172a;
+}
+
+.compare-row > div {
+  padding-right: 12px;
+}
+
+.compare-row .highlight {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+@media (max-width: 768px) {
+  .compare-row {
+    grid-template-columns: 1fr;
+    row-gap: 6px;
+  }
+
+  .compare-row.head {
+    display: none;
+  }
+
+  .compare-row > div:nth-child(2)::before {
+    content: "현금서비스&카드론: ";
+    color: #64748b;
+  }
+
+  .compare-row > div:nth-child(3)::before {
+    content: "원클릭페이: ";
+    font-weight: 600;
+    color: #0f172a;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">원클릭페이</div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="section-content hero-inner">
+    <h1 class="hero-title" id="heroTitle"></h1>
+    <p class="hero-sub" id="heroSub"></p>
+  </div>
+</section>
+
+<!-- PROMISE -->
+<section class="promise">
+  <div class="section-content">
+    <h2>원클릭페이의 약속</h2>
+    <p class="promise-sub">      
+      상담부터 입금까지 10분 비대면 원스톱서비스!</br>
+      365일 24시간 고객센터 연중무휴 운영
+    </p>
+
+    <div class="promise-list">
+      <div>
+        <!-- <div class="promise-icon">🧭</div> -->
+        <div class="promise-title">신용카드한도대출</div>
+        <div class="promise-desc">최소 3~6개월 무이자 및 12개월 부분무이자 장기분할 상환</div>
+      </div>
+      <div>
+        <!-- <div class="promise-icon">⚡</div> -->
+        <div class="promise-title">모바일·온라인 상품권 매입</div>
+        <div class="promise-desc">최고가 즉시매입 서비스</div>
+      </div>
+      <div>
+        <!-- <div class="promise-icon">🛡️</div> -->
+        <div class="promise-title">부가 신용대출</div>
+        <div class="promise-desc">이해 안 되는 게 있을 시 진행 가능 상품 없을 시 일단 문의주세요</div>
+      </div>
+      <div>
+        <!-- <div class="promise-icon">📊</div> -->
+        <div class="promise-title">고객센터 안내</div>
+        <div class="promise-desc">문의사항 언제든 편하게 문의 주세요</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="compare">
+  <div class="section-content">
+    <h2>원클릭페이의 장점</h2>
+    <p class="compare-sub">
+      고객의 입장에서 최선을 생각합니다.</br>
+    </p>
+
+    <div class="compare-table">
+      <div class="compare-row head">
+        <div></div>
+        <div>현금서비스&카드론</div>
+        <div class="highlight">원클릭페이</div>
+      </div>
+
+      <div class="compare-row">
+        <div>상환조건</div>
+        <div>결제일에 전액상환</div>
+        <div class="highlight">최소3~6개월 무이자<br>　　　　　12개월 부분무이자</br>　　　　　장기분할상환</div>
+      </div>
+
+      <div class="compare-row">
+        <div>대출제한</div>
+        <div>연체자 대출불기</div>
+        <div class="highlight">단기연체 경우 대출가능</div>
+      </div>
+
+      <div class="compare-row">
+        <div>의사 결정</div>
+        <div>담당자 의존</div>
+        <div class="highlight">기준 기반 결정</div>
+      </div>
+
+      <div class="compare-row">
+        <div>한도</div>
+        <div>서비스 이용후 한도감액 및 신용등급하락</div>
+        <div class="highlight">본인한도내에서 전액부터 신용등급하락 없음</div>
+      </div>
+<!-- 
+      <div class="compare-row">
+        <div>전략 접근</div>
+        <div>트렌드 중심</div>
+        <div class="highlight">구조·데이터 중심</div>
+      </div> -->
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 원클릭페이. All Rights Reserved.</p>
+</footer>
+
+<div class="floating-wrap">
+  <a href="tel:01076157052" class="floating-btn">
+    전화문의
+  </a>
+  <a href="https://open.kakao.com/o/szU1HZ8h" 
+     target="_blank" 
+     class="floating-btn kakao">
+    카카오문의
+  </a>
+</div>
+
+<script>
+  const heroData = [
+    {
+      title: "원클릭페이",
+      sub: "신용카드/소액결제 현금화 등</br>다양한 서비스를 제공합니다.</br>빠르고 안전한 입금!</br></br>365일 연중무휴 24시 상담 가능합니다!",
+      bg: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab"
+      
+    },
+    {
+      title: "대납ㆍ대출",
+      sub: "연체로 고민하시는분!</br>간편하게 해결하세요",
+      bg: "http://oneclick-pay.co.kr/2.jpg"
+    },
+    {
+      title: "24시간 상담가능",
+      sub: "판단은 신중하게, 실행은 빠르게</br>언제든지 상담가능!",
+      bg: "http://oneclick-pay.co.kr/1.png"
+    }
+  ];
+
+  const hero = document.getElementById("hero");
+  const titleEl = document.getElementById("heroTitle");
+  const subEl = document.getElementById("heroSub");
+
+  let idx = 0;
+
+  function updateHero() {
+    titleEl.style.opacity = 0;
+    subEl.style.opacity = 0;
+
+    setTimeout(() => {
+      titleEl.textContent = heroData[idx].title;
+      // subEl.textContent = heroData[idx].sub;
+      subEl.innerHTML = heroData[idx].sub;
+      hero.style.backgroundImage = `
+        linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+        url('${heroData[idx].bg}')
+      `;
+      titleEl.style.opacity = 1;
+      subEl.style.opacity = 1;
+      idx = (idx + 1) % heroData.length;
+    }, 400);
+  }
+
+  updateHero();
+  setInterval(updateHero, 4000);
+</script>
+
+</body>
+</html>
